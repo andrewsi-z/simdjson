@@ -26,6 +26,9 @@ const arm64::implementation arm64_singleton{};
 #if SIMDJSON_IMPLEMENTATION_PPC64
 const ppc64::implementation ppc64_singleton{};
 #endif // SIMDJSON_IMPLEMENTATION_PPC64
+#if SIMDJSON_IMPLEMENTATION_S390X
+const s390x::implementation s390x_singleton{};
+#endif // SIMDJSON_IMPLEMENTATION_S390X
 #if SIMDJSON_IMPLEMENTATION_FALLBACK
 const fallback::implementation fallback_singleton{};
 #endif // SIMDJSON_IMPLEMENTATION_FALLBACK
@@ -70,6 +73,9 @@ const std::initializer_list<const implementation *> available_implementation_poi
 #endif
 #if SIMDJSON_IMPLEMENTATION_PPC64
   &ppc64_singleton,
+#endif
+#if SIMDJSON_IMPLEMENTATION_S390X
+  &s390x_singleton,
 #endif
 #if SIMDJSON_IMPLEMENTATION_FALLBACK
   &fallback_singleton,

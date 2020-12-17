@@ -66,13 +66,20 @@ enum instruction_set {
   PCLMULQDQ = 0x10,
   BMI1 = 0x20,
   BMI2 = 0x40,
-  ALTIVEC = 0x80
+  ALTIVEC = 0x80,
+  ZARCH = 0x100
 };
 
 #if defined(__PPC64__)
 
 static inline uint32_t detect_supported_architectures() {
   return instruction_set::ALTIVEC;
+}
+
+#elif defined(__S390X__)
+
+static inline uint32_t detect_supported_architectures() {
+  return instruction_set::ZARCH;
 }
 
 #elif defined(__arm__) || defined(__aarch64__) // incl. armel, armhf, arm64

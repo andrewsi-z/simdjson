@@ -86,6 +86,7 @@ SIMDJSON_DISABLE_UNDESIRED_WARNINGS
 #include "simdjson/haswell.h"
 #include "simdjson/westmere.h"
 #include "simdjson/ppc64.h"
+#include "simdjson/s390x.h"
 #include "simdjson/fallback.h"
 #include "simdjson/builtin.h"
 

@@ -45,6 +45,8 @@
 #define SIMDJSON_IS_ARM64 1
 #elif defined(__PPC64__) || defined(_M_PPC64)
 #define SIMDJSON_IS_PPC64 1
+#elif defined(__s390x__) || defined(_M_s390x)
+#define SIMDJSON_IS_S390X 1
 #else
 #define SIMDJSON_IS_32BITS 1
 
