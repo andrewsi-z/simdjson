@@ -89,7 +89,7 @@ endif()
 #
 # Implementation selection
 #
-set(SIMDJSON_ALL_IMPLEMENTATIONS "fallback;westmere;haswell;arm64;ppc64")
+set(SIMDJSON_ALL_IMPLEMENTATIONS "fallback;westmere;haswell;arm64;ppc64;s390x")
 
 set(SIMDJSON_IMPLEMENTATION "" CACHE STRING "Semicolon-separated list of implementations to include (${SIMDJSON_ALL_IMPLEMENTATIONS}). If this is not set, any implementations that are supported at compile time and may be selected at runtime will be included.")
 foreach(implementation ${SIMDJSON_IMPLEMENTATION})
@@ -98,7 +98,7 @@ foreach(implementation ${SIMDJSON_IMPLEMENTATION})
   endif()
 endforeach(implementation)
 
-set(SIMDJSON_EXCLUDE_IMPLEMENTATION "" CACHE STRING "Semicolon-separated list of implementations to exclude (haswell/westmere/arm64/ppc64/fallback). By default, excludes any implementations that are unsupported at compile time or cannot be selected at runtime.")
+set(SIMDJSON_EXCLUDE_IMPLEMENTATION "" CACHE STRING "Semicolon-separated list of implementations to exclude (haswell/westmere/arm64/ppc64/s390x/fallback). By default, excludes any implementations that are unsupported at compile time or cannot be selected at runtime.")
 foreach(implementation ${SIMDJSON_EXCLUDE_IMPLEMENTATION})
   if(NOT (implementation IN_LIST SIMDJSON_ALL_IMPLEMENTATIONS))
     message(ERROR "Implementation ${implementation} not supported by simdjson. Possible implementations: ${SIMDJSON_ALL_IMPLEMENTATIONS}")
@@ -153,6 +153,10 @@ option(SIMDJSON_IMPLEMENTATION_PPC64 "Include the arm64 implementation" ON)
 if(NOT SIMDJSON_IMPLEMENTATION_PPC64)
   message(DEPRECATION "SIMDJSON_IMPLEMENTATION_PPC64 is deprecated. Use SIMDJSON_IMPLEMENTATION=-ppc64 instead.")
   target_compile_definitions(simdjson-flags INTERFACE SIMDJSON_IMPLEMENTATION_PPC64=0)
+endif()
+if(NOT SIMDJSON_IMPLEMENTATION_S390X)
+  message(DEPRECATION "SIMDJSON_IMPLEMENTATION_S390X is deprecated. Use SIMDJSON_IMPLEMENTATION=-s390x instead.")
+  target_compile_definitions(simdjson-flags INTERFACE SIMDJSON_IMPLEMENTATION_S390X=0)
 endif()
 option(SIMDJSON_IMPLEMENTATION_FALLBACK "Include the fallback implementation" ON)
 if(NOT SIMDJSON_IMPLEMENTATION_FALLBACK)

@@ -27,6 +27,10 @@ SIMDJSON_DISABLE_UNDESIRED_WARNINGS
 #include "ppc64/implementation.cpp"
 #include "ppc64/dom_parser_implementation.cpp"
 #endif
+#if SIMDJSON_IMPLEMENTATION_S390X
+#include "s390x/implementation.cpp"
+#include "s390x/dom_parser_implementation.cpp"
+#endif
 #if SIMDJSON_IMPLEMENTATION_WESTMERE
 #include "westmere/implementation.cpp"
 #include "westmere/dom_parser_implementation.cpp"

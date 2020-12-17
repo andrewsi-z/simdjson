@@ -12,11 +12,11 @@
 #include "simdjson/internal/numberparsing_tables.h"
 #include "simdjson/internal/simdprune_tables.h"
 
-#if SIMDJSON_IMPLEMENTATION_PPC64
+#if SIMDJSON_IMPLEMENTATION_S390X
 
 namespace simdjson {
 /**
- * Implementation for ALTIVEC (PPC64).
+ * Implementation for ALTIVEC like vector header (s390x).
  */
 namespace s390x {
 } // namespace s390x

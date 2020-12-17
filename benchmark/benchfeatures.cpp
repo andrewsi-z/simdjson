@@ -64,7 +64,7 @@ void print_usage(ostream& out) {
   out << "             -s stage1 - Stop after find_structural_bits." << endl;
   out << "             -s all    - Run all stages." << endl;
   out << "-a ARCH    - Use the parser with the designated architecture (HASWELL, WESTMERE," << endl;
-  out << "             PPC64 or ARM64). By default, detects best supported architecture." << endl;
+  out << "             PPC64, S390X or ARM64). By default, detects best supported architecture." << endl;
 }
 
 void exit_usage(string message) {
