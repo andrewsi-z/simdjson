@@ -45,7 +45,7 @@
 #define SIMDJSON_IS_ARM64 1
 #elif defined(__PPC64__) || defined(_M_PPC64)
 #define SIMDJSON_IS_PPC64 1
-#elif defined(__s390x__) || defined(_M_s390x)
+#elif defined(__s390x__) || defined(__zarch__)
 #define SIMDJSON_IS_S390X 1
 #else
 #define SIMDJSON_IS_32BITS 1
@@ -68,7 +68,7 @@
 for 64-bit processors and it seems that you are not \
 compiling for a known 64-bit platform. All fast kernels \
 will be disabled and performance may be poor. Please \
-use a 64-bit target such as x64, 64-bit ARM or 64-bit PPC.")
+use a 64-bit target such as x64, 64-bit ARM, 64-bit PPC or 64-bit zArch.")
 #endif // SIMDJSON_NO_PORTABILITY_WARNING
 #endif // SIMDJSON_IS_32BITS
 
