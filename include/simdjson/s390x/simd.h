@@ -10,6 +10,14 @@ namespace simdjson {
 namespace SIMDJSON_IMPLEMENTATION {
 namespace {
 namespace simd {
+/*All changes:
+  - vec_vsx_ld changed to vec_xl based on ppc and s390x compare of instruction types
+  - vec_vsx_st changed to vec_xst 
+  - vec_adds changed to vec_addc
+  - vec_subs changed to vec_subc
+  - vec_sr changed to vec_srl
+  - vec_sl changed to vec_sll
+*/
 
 using __m128i = __vector unsigned char;
 
@@ -133,7 +141,7 @@ template <typename T> struct base8_numeric : base8<T> {
   }
   static simdjson_really_inline simd8<T> zero() { return splat(0); }
   static simdjson_really_inline simd8<T> load(const T values[16]) {
-    return (__m128i)(vec_vsx_ld(0, (const uint8_t *)values));
+    return (__m128i)(vec_xl(0, (const uint8_t *)values));
   }
   // Repeat 16 values as many times as necessary (usually for lookup tables)
   static simdjson_really_inline simd8<T> repeat_16(T v0, T v1, T v2, T v3, T v4,
@@ -150,7 +158,7 @@ template <typename T> struct base8_numeric : base8<T> {
 
   // Store to array
   simdjson_really_inline void store(T dst[16]) const {
-    vec_vsx_st(this->value, 0, reinterpret_cast<__m128i *>(dst));
+    vec_xst(this->value, 0, reinterpret_cast<__m128i *>(dst));
   }
 
   // Override to distinguish from bool version
@@ -219,9 +227,9 @@ template <typename T> struct base8_numeric : base8<T> {
     // it fills in with the bytes from the second 8 bytes + some filling
     // at the end.
     __m128i compactmask =
-        vec_vsx_ld(0, (const uint8_t *)(pshufb_combine_table + pop1 * 8));
+        vec_xl(0, (const uint8_t *)(pshufb_combine_table + pop1 * 8));
     __m128i answer = vec_perm(pruned, (__m128i)vec_splats(0), compactmask);
-    vec_vsx_st(answer, 0, (__m128i *)(output));
+    vec_xst(answer, 0, (__m128i *)(output));
   }
 
   template <typename L>
@@ -312,14 +320,15 @@ template <> struct simd8<uint8_t> : base8_numeric<uint8_t> {
                           v13, v14, v15);
   }
 
-  // Saturated math
+  // Saturated math ---- This is not supported by built-ins 
+  // @AMS 
   simdjson_really_inline simd8<uint8_t>
   saturating_add(const simd8<uint8_t> other) const {
-    return (__m128i)vec_adds(this->value, (__m128i)other);
+    return (__m128i)vec_addc(this->value, (__m128i)other);
   }
   simdjson_really_inline simd8<uint8_t>
   saturating_sub(const simd8<uint8_t> other) const {
-    return (__m128i)vec_subs(this->value, (__m128i)other);
+    return (__m128i)vec_subc(this->value, (__m128i)other);
   }
 
   // Order-specific operations
@@ -386,11 +395,11 @@ template <> struct simd8<uint8_t> : base8_numeric<uint8_t> {
   }
   template <int N> simdjson_really_inline simd8<uint8_t> shr() const {
     return simd8<uint8_t>(
-        (__m128i)vec_sr(this->value, (__m128i)vec_splat_u8(N)));
+        (__m128i)vec_srl(this->value, (__m128i)vec_splat_u8(N)));
   }
   template <int N> simdjson_really_inline simd8<uint8_t> shl() const {
     return simd8<uint8_t>(
-        (__m128i)vec_sl(this->value, (__m128i)vec_splat_u8(N)));
+        (__m128i)vec_sll(this->value, (__m128i)vec_splat_u8(N)));
   }
 };
 
