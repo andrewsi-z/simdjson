@@ -108,7 +108,9 @@ template <> struct simd8<bool> : base8<bool> {
     const __m128i perm_mask = {0x78, 0x70, 0x68, 0x60, 0x58, 0x50, 0x48, 0x40,
                                0x38, 0x30, 0x28, 0x20, 0x18, 0x10, 0x08, 0x00};
 
-    result = ((__vector unsigned long long)vec_vbpermq((__m128i)this->value,
+    //@AMS ok we'll want to check this one. 
+    // https://github.com/gcc-mirror/gcc/blob/master/gcc/config/s390/vecintrin.h
+    result = ((__vector unsigned long long)vec_bperm_u128((__m128i)this->value,
                                                        (__m128i)perm_mask));
 #ifdef __LITTLE_ENDIAN__
     return static_cast<int>(result[1]);
