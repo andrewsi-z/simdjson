@@ -12,7 +12,7 @@ namespace {
 namespace simd {
 /*All changes:
   - vec_vsx_ld changed to vec_xl based on ppc and s390x compare of instruction types
-  - vec_vsx_st changed to vec_xstd2 
+  - vec_vsx_st changed to vec_xstw4 (since vec_xstd2 is deprecated)
   - vec_adds changed to vec_addc
   - vec_subs changed to vec_subc
   - vec_sr changed to vec_srl
@@ -158,7 +158,7 @@ template <typename T> struct base8_numeric : base8<T> {
 
   // Store to array
   simdjson_really_inline void store(T dst[16]) const {
-    vec_xstd2(this->value, 0, reinterpret_cast<__m128i *>(dst));
+    vec_xstw4(this->value, 0, reinterpret_cast<__m128i *>(dst));
   }
 
   // Override to distinguish from bool version
@@ -229,7 +229,7 @@ template <typename T> struct base8_numeric : base8<T> {
     __m128i compactmask =
         vec_xl(0, (const uint8_t *)(pshufb_combine_table + pop1 * 8));
     __m128i answer = vec_perm(pruned, (__m128i)vec_splats(0), compactmask);
-    vec_xstd2(answer, 0, (__m128i *)(output));
+    vec_xstw4(answer, 0, (__m128i *)(output));
   }
 
   template <typename L>
