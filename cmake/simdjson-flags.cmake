@@ -228,6 +228,11 @@ if(SIMDJSON_USE_LIBCPP)
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lc++abi")
 endif(SIMDJSON_USE_LIBCPP)
 
+if(SIMDJSON_IMPLEMENTATION_S390X)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --mzvector")
+endif()
+  
+
 # prevent shared libraries from depending on Intel provided libraries
 if(${CMAKE_C_COMPILER_ID} MATCHES "Intel") # icc / icpc
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-intel")
