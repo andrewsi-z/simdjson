@@ -12,6 +12,12 @@
 #include "simdjson/internal/numberparsing_tables.h"
 #include "simdjson/internal/simdprune_tables.h"
 
+#ifndef SIMDJSON_IMPLEMENTATION_S390X
+#define SIMDJSON_IMPLEMENTATION_S390X (SIMDJSON_IS_S390X)
+#endif
+
+#define SIMDJSON_CAN_ALWAYS_RUN_S390X ((SIMDJSON_IMPLEMENTATION_S390X) && (SIMDJSON_IS_S390X))
+
 #if SIMDJSON_IMPLEMENTATION_S390X
 
 namespace simdjson {
