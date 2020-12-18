@@ -165,10 +165,10 @@ if(NOT SIMDJSON_IMPLEMENTATION_FALLBACK)
   target_compile_definitions(simdjson-flags INTERFACE SIMDJSON_IMPLEMENTATION_FALLBACK=0)
 endif()
 
-IF(SIMDJSON_IMPLEMENTATION_S390X)
-  message("SIMDJSON_IMPLEMENTATION_S390X setting compiler options to enable vectorization support.")
-  target_compile_options(simdjson-internal-flags INTERFACE -mzvector -march=arch13)
-endif()
+#IF(SIMDJSON_IMPLEMENTATION_S390X)
+#  message("SIMDJSON_IMPLEMENTATION_S390X setting compiler options to enable vectorization support.")
+#  target_compile_options(simdjson-internal-flags INTERFACE -mzvector -march=arch13)
+#endif()
 
 #
 # Other optional flags

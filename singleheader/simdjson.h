@@ -1,4 +1,4 @@
-/* auto-generated on 2020-12-17 16:39:57 -0500. Do not edit! */
+/* auto-generated on 2020-12-18 10:10:41 -0500. Do not edit! */
 /* begin file include/simdjson.h */
 #ifndef SIMDJSON_H
 #define SIMDJSON_H
@@ -2778,7 +2778,7 @@ static inline uint32_t detect_supported_architectures() {
   return instruction_set::ALTIVEC;
 }
 
-#elif defined(__S390X__)
+#elif defined(__s390x__) || defined(__zarch__)
 
 static inline uint32_t detect_supported_architectures() {
   return instruction_set::ZARCH;
