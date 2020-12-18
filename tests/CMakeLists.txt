@@ -108,6 +108,7 @@ if (BASH AND (NOT WIN32) AND SIMDJSON_BASH AND (TARGET json2json)) # The scripts
   # This tests validates that the implementation is what we think it is if we get passed
   # SIMDJSON_FORCE_IMPLEMENTATION, so we know we're testing what we think we're testing
   add_cpp_test(checkimplementation LABELS per_implementation)
+  add_cpp_test(checks390x LABELS per_implementation)
 
   add_test(NAME json2json COMMAND $<TARGET_FILE:json2json> ${EXAMPLE_JSON})
   set_property(TEST json2json APPEND PROPERTY LABELS acceptance per_implementation)
