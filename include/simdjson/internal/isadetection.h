@@ -76,7 +76,7 @@ static inline uint32_t detect_supported_architectures() {
   return instruction_set::ALTIVEC;
 }
 
-#elif defined(__S390X__)
+#elif defined(__s390x__) || defined(__zarch__)
 
 static inline uint32_t detect_supported_architectures() {
   return instruction_set::ZARCH;
