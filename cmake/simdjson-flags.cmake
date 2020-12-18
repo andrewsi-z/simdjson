@@ -167,7 +167,7 @@ endif()
 
 #IF(SIMDJSON_IMPLEMENTATION_S390X)
 #  message("SIMDJSON_IMPLEMENTATION_S390X setting compiler options to enable vectorization support.")
-#  target_compile_options(simdjson-internal-flags INTERFACE -mzvector -march=arch13)
+#  target_compile_options(simdjson-internal-flags INTERFACE -mzvector -march=arch14)
 #endif()
 
 #
@@ -229,7 +229,7 @@ if(SIMDJSON_USE_LIBCPP)
 endif(SIMDJSON_USE_LIBCPP)
 
 if(SIMDJSON_IMPLEMENTATION_S390X)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mzvector")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mzvector -march=arch12")
 endif()
   
 
