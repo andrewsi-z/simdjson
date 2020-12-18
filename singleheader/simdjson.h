@@ -1,4 +1,4 @@
-/* auto-generated on 2020-12-17 16:32:26 -0500. Do not edit! */
+/* auto-generated on 2020-12-17 16:39:57 -0500. Do not edit! */
 /* begin file include/simdjson.h */
 #ifndef SIMDJSON_H
 #define SIMDJSON_H
@@ -131,6 +131,10 @@
 #else
 #define SIMDJSON_IS_32BITS 1
 
+#if SIMDJSON_IS_S390X
+#pragma message("S390X detected")
+#endif // SIMDJSON_NO_PORTABILITY_WARNING
+
 // We do not support 32-bit platforms, but it can be
 // handy to identify them.
 #if defined(_M_IX86) || defined(__i386__)
@@ -149,7 +153,8 @@
 for 64-bit processors and it seems that you are not \
 compiling for a known 64-bit platform. All fast kernels \
 will be disabled and performance may be poor. Please \
-use a 64-bit target such as x64, 64-bit ARM, 64-bit PPC or 64-bit zArch.")
+use a 64-bit target such as x64, 64-bit ARM, 64-bit PPC \
+or 64-bit zArch.")
 #endif // SIMDJSON_NO_PORTABILITY_WARNING
 #endif // SIMDJSON_IS_32BITS
 
