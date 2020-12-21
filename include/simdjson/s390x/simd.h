@@ -229,10 +229,8 @@ template <typename T> struct base8_numeric : base8<T> {
     __m128i compactmask =
         vec_xl(0, (const uint8_t *)(pshufb_combine_table + pop1 * 8));
     //@AMS TODO ok probably want to explore this later
-    SIMDJSON_PUSH_DISABLE_WARNINGS
-    __m128i answer = vec_perm(pruned, (__m128i)vec_splats(0), compactmask);
+    [[maybe_unused]] __m128i answer = vec_perm(pruned, (__m128i)vec_splats(0), compactmask);
     vec_xst(answer, 0, (unsigned char *)(output));
-    SIMDJSON_POP_DISABLE_WARNINGS
   }
 
   template <typename L>
